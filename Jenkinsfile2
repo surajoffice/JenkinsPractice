@@ -1,0 +1,32 @@
+pipeline{
+    agent none
+    stages{
+        stage('GitClone'){
+            agent any
+            steps{
+              git 'https://github.com/jenkins-docs/simple-java-maven-app.git'  
+            }
+            
+        }
+        stage('MavenComplile'){
+            agent any
+            steps{
+                bat 'mvn compile'
+            }
+        }
+        stage('MavenTest'){
+            agent any
+            steps{
+                bat 'mvn test'
+            }
+        }
+        stage('MavenPackage'){
+            agent any
+            steps{
+              //  git credentialsId: 'xxx', url: 'https://gitlab.com/xxx/gameoflife.git'
+               git 'https://github.com/jenkins-docs/simple-java-maven-app.git'  
+               bat 'mvn package'
+            }
+        }
+    }
+}
